@@ -195,7 +195,7 @@ class _SearchWidgetState extends State<SearchWidget> {
   }
 }
 
-enum Mode { overlay, fullscreen }
+enum Mode { overlay, fullscreen, widget }
 
 class PlaceAutocomplete {
   static show(
@@ -221,9 +221,14 @@ class PlaceAutocomplete {
                 autoFocus: true,
               )),
         ));
-    if (Mode.overlay == mode) {
+    if (mode == Mode.overlay) {
       return showDialog(context: context, builder: builder);
+    } else if (mode == Mode.fullscreen) {
+      return Navigator.push(context, MaterialPageRoute(builder: builder));
+    } else {
+      return SearchWidget(
+        onDone: onDone,
+      );
     }
-    return Navigator.push(context, MaterialPageRoute(builder: builder));
   }
 }
