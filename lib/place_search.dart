@@ -230,9 +230,20 @@ class PlaceAutocomplete {
     }
   }
 
-  static widget({required Function(SearchInfo) onDone}) {
+  static widget({
+    required Function(SearchInfo) onDone,
+    final bool autoFocus = false,
+    final InputDecoration? decoration,
+    final int suggestionLimit = 5,
+    final int minLengthToStartSearch = 3,
+  }) {
     return SearchWidget(
       onDone: onDone,
+      isPopup: false,
+      autoFocus: autoFocus,
+      decoration: decoration,
+      suggestionLimit: suggestionLimit,
+      minLengthToStartSearch: minLengthToStartSearch,
     );
   }
 }
