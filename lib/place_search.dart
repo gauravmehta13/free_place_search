@@ -37,10 +37,17 @@ class _SearchWidgetState extends State<SearchWidget> {
   String oldText = "";
   Timer? _timerToStartSuggestionReq;
   final Key streamKey = const Key("streamAddressSug");
+  final TextEditingController controller = TextEditingController();
 
   @override
   void initState() {
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
   }
 
   void onSearchableTextChanged(String v) async {
@@ -81,11 +88,6 @@ class _SearchWidgetState extends State<SearchWidget> {
   }
 
   @override
-  void dispose() {
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Column(
@@ -95,11 +97,11 @@ class _SearchWidgetState extends State<SearchWidget> {
             padding: widget.isPopup
                 ? const EdgeInsets.all(10)
                 : const EdgeInsets.all(10),
-            child: TextField(
+            child: TextFormField(
+                controller: controller,
                 enableInteractiveSelection: false,
                 onChanged: onSearchableTextChanged,
                 autofocus: widget.autoFocus,
-                onTap: () async {},
                 textAlign: TextAlign.justify,
                 decoration: InputDecoration(
                   prefixIcon: widget.isPopup
@@ -137,9 +139,7 @@ class _SearchWidgetState extends State<SearchWidget> {
             valueListenable: notifierAutoCompletion,
             builder: (ctx, isVisible, child) {
               return AnimatedContainer(
-                duration: const Duration(
-                  milliseconds: 500,
-                ),
+                duration: const Duration(milliseconds: 500),
                 height: isVisible ? MediaQuery.of(context).size.height / 4 : 0,
                 child: Card(
                   child: child!,
@@ -161,6 +161,8 @@ class _SearchWidgetState extends State<SearchWidget> {
                           overflow: TextOverflow.fade,
                         ),
                         onTap: () async {
+                          controller.text =
+                              snap.data![index].address.toString();
                           log(snap.data![index].address.toString());
                           widget.onDone(snap.data![index]);
 
