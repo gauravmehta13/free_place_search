@@ -1,6 +1,6 @@
 name: free_place_search
-description: A new Flutter project.
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+description: Free Place Search using Photon API
+publish_to: "https://github.com/GauravCalidig/free_place_search.git"
 version: 1.0.0+1
 
 environment:
