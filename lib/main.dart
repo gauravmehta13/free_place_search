@@ -41,7 +41,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            SearchWidget(onDone: (e) {}),
+            PlaceAutocomplete.widget(onDone: (e) {}),
           ],
         ),
       ),
