@@ -203,12 +203,18 @@ class PlaceAutocomplete {
   static show(
       {required BuildContext context,
       Mode mode = Mode.overlay,
+      final bool autoFocus = false,
+      final InputDecoration? textfieldDecoration,
+      final Decoration? containerDecoration,
+      final int suggestionLimit = 5,
+      final int minLengthToStartSearch = 3,
+      final EdgeInsetsGeometry? borderPadding,
       required Function(SearchInfo) onDone}) {
     // ignore: prefer_function_declarations_over_variables
     final builder = (BuildContext ctx) => Scaffold(
         backgroundColor: Colors.transparent,
         body: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: borderPadding ?? const EdgeInsets.all(8.0),
           child: Container(
               clipBehavior: Clip.hardEdge,
               decoration: const BoxDecoration(
@@ -219,8 +225,11 @@ class PlaceAutocomplete {
               ),
               child: SearchWidget(
                 onDone: onDone,
-                isPopup: true,
-                autoFocus: true,
+                suggestionLimit: suggestionLimit,
+                minLengthToStartSearch: minLengthToStartSearch,
+                isPopup: mode == Mode.overlay,
+                autoFocus: autoFocus,
+                decoration: textfieldDecoration,
               )),
         ));
     if (mode == Mode.overlay) {
@@ -233,7 +242,7 @@ class PlaceAutocomplete {
   static widget({
     required Function(SearchInfo) onDone,
     final bool autoFocus = false,
-    final InputDecoration? decoration,
+    final InputDecoration? textfieldDecoration,
     final int suggestionLimit = 5,
     final int minLengthToStartSearch = 3,
   }) {
@@ -241,7 +250,7 @@ class PlaceAutocomplete {
       onDone: onDone,
       isPopup: false,
       autoFocus: autoFocus,
-      decoration: decoration,
+      decoration: textfieldDecoration,
       suggestionLimit: suggestionLimit,
       minLengthToStartSearch: minLengthToStartSearch,
     );
