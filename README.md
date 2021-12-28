@@ -23,6 +23,9 @@ Free Place Search
 
 Free Place Search using Photon Api
 
+![Screenshot](img.jpg)
+
+![Screenshot](sample.gif)
 
 
 ## Usage
