@@ -28,11 +28,6 @@ Free Place Search using Photon Api
   <img src="/sample.gif" width="350"  alt="accessibility text">
 </p>
 
-![Screenshot](img.jpg)
-
-![Screenshot](sample.gif)
-
-
 ## Usage
 
 ```dart
