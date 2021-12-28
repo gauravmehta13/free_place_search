@@ -23,6 +23,11 @@ Free Place Search
 
 Free Place Search using Photon Api
 
+<p align="center">
+  <img src="img.jpg" width="350" title="hover text">
+  <img src="/sample.gif" width="350" alt="accessibility text">
+</p>
+
 ![Screenshot](img.jpg)
 
 ![Screenshot](sample.gif)
