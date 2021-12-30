@@ -24,8 +24,10 @@ Free Place Search
 Free Place Search using Photon Api
 
 <p align="center">
-  <img src="/img.jpg" width="300"  title="hover text">
-  <img src="/sample.gif" width="350"  alt="accessibility text">
+<img height="400" alt="portfolio_view" src="https://raw.githubusercontent.com/gauravmehta13/free_place_search/master/sample.gif">
+<img height="400" alt="portfolio_view" src="https://raw.githubusercontent.com/gauravmehta13/free_place_search/master/img.jpg">
+
+ 
 </p>
 
 ## Usage
