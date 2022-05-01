@@ -53,12 +53,10 @@ class _SearchWidgetState extends State<SearchWidget> {
   void onSearchableTextChanged(String v) async {
     if (v.length > widget.minLengthToStartSearch && oldText != v) {
       oldText = v;
-      if (_timerToStartSuggestionReq != null &&
-          _timerToStartSuggestionReq!.isActive) {
+      if (_timerToStartSuggestionReq != null && _timerToStartSuggestionReq!.isActive) {
         _timerToStartSuggestionReq!.cancel();
       }
-      _timerToStartSuggestionReq =
-          Timer.periodic(const Duration(milliseconds: 500), (timer) async {
+      _timerToStartSuggestionReq = Timer.periodic(const Duration(milliseconds: 500), (timer) async {
         await suggestionProcessing(v);
         timer.cancel();
       });
@@ -94,9 +92,7 @@ class _SearchWidgetState extends State<SearchWidget> {
         mainAxisSize: MainAxisSize.min,
         children: [
           Container(
-            padding: widget.isPopup
-                ? const EdgeInsets.all(10)
-                : const EdgeInsets.all(10),
+            padding: widget.isPopup ? const EdgeInsets.all(10) : const EdgeInsets.all(10),
             child: TextFormField(
                 controller: controller,
                 enableInteractiveSelection: false,
@@ -107,8 +103,7 @@ class _SearchWidgetState extends State<SearchWidget> {
                   prefixIcon: widget.isPopup
                       ? IconButton(
                           onPressed: () => Navigator.pop(context),
-                          icon:
-                              const Icon(Icons.arrow_back, color: Colors.black))
+                          icon: const Icon(Icons.arrow_back, color: Colors.black))
                       : Container(
                           padding: const EdgeInsets.symmetric(horizontal: 5),
                           margin: const EdgeInsets.symmetric(horizontal: 10),
@@ -140,8 +135,13 @@ class _SearchWidgetState extends State<SearchWidget> {
             builder: (ctx, isVisible, child) {
               return AnimatedContainer(
                 duration: const Duration(milliseconds: 500),
-                height: isVisible ? MediaQuery.of(context).size.height / 4 : 0,
+                height: isVisible
+                    ? widget.isPopup
+                        ? MediaQuery.of(context).size.height / 3
+                        : MediaQuery.of(context).size.height / 4
+                    : 0,
                 child: Card(
+                  elevation: 0,
                   child: child!,
                 ),
               );
@@ -152,27 +152,36 @@ class _SearchWidgetState extends State<SearchWidget> {
               builder: (ctx, snap) {
                 if (snap.hasData) {
                   return ListView.builder(
-                    itemExtent: 50.0,
                     itemBuilder: (ctx, index) {
-                      return ListTile(
-                        title: Text(
-                          snap.data![index].address.toString(),
-                          maxLines: 1,
-                          overflow: TextOverflow.fade,
-                        ),
-                        onTap: () async {
-                          controller.text =
-                              snap.data![index].address.toString();
-                          log(snap.data![index].address.toString());
-                          widget.onDone(snap.data![index]);
+                      return Column(
+                        children: [
+                          ListTile(
+                            title: Text(
+                              snap.data![index].address.toString(),
+                              maxLines: 1,
+                              overflow: TextOverflow.fade,
+                            ),
+                            onTap: () async {
+                              controller.text = snap.data![index].address.toString();
+                              log(snap.data![index].address.toString());
+                              widget.onDone(snap.data![index]);
 
-                          /// hide suggestion card
-                          notifierAutoCompletion.value = false;
-                          await reInitStream();
-                          FocusScope.of(context).requestFocus(
-                            FocusNode(),
-                          );
-                        },
+                              /// hide suggestion card
+                              notifierAutoCompletion.value = false;
+                              await reInitStream();
+                              FocusScope.of(context).requestFocus(
+                                FocusNode(),
+                              );
+                            },
+                          ),
+                          const Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 8.0),
+                            child: Divider(
+                              height: 0.5,
+                              thickness: 0.5,
+                            ),
+                          )
+                        ],
                       );
                     },
                     itemCount: snap.data!.length,
