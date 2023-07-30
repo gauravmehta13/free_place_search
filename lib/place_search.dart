@@ -128,6 +128,11 @@ class _SearchWidgetState extends State<SearchWidget> {
                     ),
                   ),
                   focusColor: Theme.of(context).primaryColor,
+                  // clear button to clear the input
+                  suffixIcon: IconButton(
+                    onPressed: controller.clear,
+                    icon: Icon(Icons.clear),
+                  ),
                 )),
           ),
           ValueListenableBuilder<bool>(
