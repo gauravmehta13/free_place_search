@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:async';
 import 'dart:developer';
 
@@ -25,7 +27,7 @@ class SearchWidget extends StatefulWidget {
       : super(key: key);
 
   @override
-  _SearchWidgetState createState() => _SearchWidgetState();
+  State<SearchWidget> createState() => _SearchWidgetState();
 }
 
 class _SearchWidgetState extends State<SearchWidget> {
@@ -53,10 +55,12 @@ class _SearchWidgetState extends State<SearchWidget> {
   void onSearchableTextChanged(String v) async {
     if (v.length > widget.minLengthToStartSearch && oldText != v) {
       oldText = v;
-      if (_timerToStartSuggestionReq != null && _timerToStartSuggestionReq!.isActive) {
+      if (_timerToStartSuggestionReq != null &&
+          _timerToStartSuggestionReq!.isActive) {
         _timerToStartSuggestionReq!.cancel();
       }
-      _timerToStartSuggestionReq = Timer.periodic(const Duration(milliseconds: 500), (timer) async {
+      _timerToStartSuggestionReq =
+          Timer.periodic(const Duration(milliseconds: 500), (timer) async {
         await suggestionProcessing(v);
         timer.cancel();
       });
@@ -92,7 +96,9 @@ class _SearchWidgetState extends State<SearchWidget> {
         mainAxisSize: MainAxisSize.min,
         children: [
           Container(
-            padding: widget.isPopup ? const EdgeInsets.all(10) : const EdgeInsets.all(10),
+            padding: widget.isPopup
+                ? const EdgeInsets.all(10)
+                : const EdgeInsets.all(10),
             child: TextFormField(
                 controller: controller,
                 enableInteractiveSelection: false,
@@ -103,7 +109,8 @@ class _SearchWidgetState extends State<SearchWidget> {
                   prefixIcon: widget.isPopup
                       ? IconButton(
                           onPressed: () => Navigator.pop(context),
-                          icon: const Icon(Icons.arrow_back, color: Colors.black))
+                          icon:
+                              const Icon(Icons.arrow_back, color: Colors.black))
                       : Container(
                           padding: const EdgeInsets.symmetric(horizontal: 5),
                           margin: const EdgeInsets.symmetric(horizontal: 10),
@@ -131,7 +138,7 @@ class _SearchWidgetState extends State<SearchWidget> {
                   // clear button to clear the input
                   suffixIcon: IconButton(
                     onPressed: controller.clear,
-                    icon: Icon(Icons.clear),
+                    icon: const Icon(Icons.clear),
                   ),
                 )),
           ),
@@ -167,7 +174,8 @@ class _SearchWidgetState extends State<SearchWidget> {
                               overflow: TextOverflow.fade,
                             ),
                             onTap: () async {
-                              controller.text = snap.data![index].address.toString();
+                              controller.text =
+                                  snap.data![index].address.toString();
                               log(snap.data![index].address.toString());
                               widget.onDone(snap.data![index]);
 

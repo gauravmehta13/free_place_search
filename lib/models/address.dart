@@ -32,22 +32,22 @@ class Address {
   String toString() {
     String addr = "";
     if (name != null && name!.isNotEmpty) {
-      addr = addr + "$name,";
+      addr = "$addr$name,";
     }
     if (street != null && street!.isNotEmpty) {
-      addr = addr + "$street,";
+      addr = "$addr$street,";
     }
     if (postcode != null && postcode!.isNotEmpty) {
-      addr = addr + "$postcode,";
+      addr = "$addr$postcode,";
     }
     if (city != null && city!.isNotEmpty) {
-      addr = addr + "$city,";
+      addr = "$addr$city,";
     }
     if (state != null && state!.isNotEmpty) {
-      addr = addr + "$state,";
+      addr = "$addr$state,";
     }
     if (country != null && country!.isNotEmpty) {
-      addr = addr + "$country";
+      addr = "$addr$country";
     }
 
     return addr;
